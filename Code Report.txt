@@ -1,0 +1,17 @@
+This PowerShell script retrieves population data for each state in the US from an API and calculates year-over-year population change and percentage change for each state. It then exports the data to a CSV file. The script then imports the CSV data and groups it by state, calculates the population change for each state, and calculates the prime factors of the final year's population for each state. Finally, the script exports the results to another CSV file.
+
+Here's a breakdown of the script:
+
+The script imports a PowerShell module called PrimeFactor, which provides a function for calculating the prime factors of a number.
+The script sets the URL of the API endpoint that provides the population data for each state in the US.
+The script makes a GET request to the API and stores the response in a variable called $response.
+The script extracts state and population data from the response and stores it in a variable called $data.
+The script groups the population data by state using the Group-Object cmdlet and stores the result in a variable called $groupedData.
+The script initializes an array called $results to store the results of the population change and percentage change calculations.
+The script loops through each state group in $groupedData and calculates the population change and percentage change for each year. It then adds the results to the $results array.
+The script exports the $data variable to a CSV file called "Output1.csv".
+The script imports the "Output1.csv" file and groups the data by state using the Group-Object cmdlet. It then stores the result in a variable called $groupedData.
+The script initializes an array called $results to store the final results.
+The script loops through each state group in the CSV data, calculates the population change, and calculates the prime factors of the final year's population using the Get-PrimeFactors function from the PrimeFactor module.
+The script creates a custom object to store the results and adds it to the $results array.
+The script exports the $results array to a CSV file called "Output2.csv".
