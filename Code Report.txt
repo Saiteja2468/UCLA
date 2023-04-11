@@ -1,0 +1,42 @@
+Title: PowerShell Script to Fetch, Process, and Export Population Data with Prime Factors
+
+This PowerShell script fetches population data from an API, processes it to calculate population change, and adds prime factorization of the current year's population for each state. The processed data is then exported to a CSV file.
+
+Step-by-Step Code Report:
+
+Define the Get-PrimeFactors function:
+a. Take a number as input
+b. Initialize an empty array named $factors to store the prime factors
+c. Initialize a variable $divisor with a value of 2
+d. While the input number is greater than 1, do the following:
+i. While the input number is divisible by the divisor, do the following:
+1. Append the divisor to the $factors array
+2. Divide the input number by the divisor
+ii. Increment the divisor
+e. Return the $factors array
+
+Set the API URL as "https://datausa.io/api/data?drilldowns=State&measures=Population".
+
+Invoke the API using Invoke-WebRequest and store the response in the $response variable.
+
+Convert the JSON content of the $response to a PowerShell object using ConvertFrom-Json and store it in $jsonData.
+
+Extract the 'data' array from $jsonData and store it in $dataArray.
+
+Group the data in $dataArray by the 'State' property using Group-Object and store the result in $groupedData.
+
+Initialize an empty array named $formattedData to store the processed data.
+
+Iterate through each state's data in $groupedData:
+a. Assign the current group's data to $stateData and the count of elements in $stateData to $stateDataCount.
+b. Loop through the state data from index 1 to $stateDataCount - 1:
+i. Calculate the population change and population change percentage between the current year and the previous year.
+ii. Create a PSCustomObject with the following properties:
+1. State
+2. Year
+3. Population
+4. PopulationChange (with percentage)
+5. PrimeFactorization (only for the year 2019)
+iii. Append the PSCustomObject to the $formattedData array.
+
+Export the data in the $formattedData array to a CSV file named "Final-Output.csv" located in the "C:" directory, without type information.
